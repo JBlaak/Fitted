@@ -2,12 +2,11 @@
   "name": "fitted",
   "version": "0.0.1",
   "description": "Simplifying http requests using ES7 decorators",
-  "main": "lib/http.js",
+  "main": "build/http.js",
   "scripts": {
-    "prepublish": "babel src --out-dir lib",
-    "test": "npm run mocha-single",
-    "mocha-single": "mocha tests --recursive --require mocha.config.js",
-    "mocha-watch": "mocha tests --recursive --require mocha.config.js --watch"
+    "prepublish": "npm run build",
+    "build": "babel src --out-dir build",
+    "test": "npm run build && mocha tests --recursive --require mocha.config.js"
   },
   "author": "Joris Blaak",
   "license": "Apache-2.0",
