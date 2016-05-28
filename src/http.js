@@ -1,16 +1,16 @@
 import Request from 'request';
 
-export default function (url) {
+export function get (url) {
 
   const req = (res) => {
     return new Promise((resolve, reject) => {
       Request(url, function (error, response, body) {
 
-        var contentType = response.headers['content-type'];
-        if(contentType && contentType.indexOf('application/json') !== -1) {
-            body = JSON.parse(body);
+        var contentType = response.headers[ 'content-type' ];
+        if (contentType && contentType.indexOf('application/json') !== -1) {
+          body = JSON.parse(body);
         }
-        
+
         if (!error && response.statusCode == 200) {
           resolve(body);
         } else {

@@ -1,5 +1,5 @@
 import expect from 'expect.js';
-import http from '../src/http';
+import {get} from '../src/http';
 
 describe('HttpDecorator', function () {
 
@@ -9,15 +9,16 @@ describe('HttpDecorator', function () {
       /* Given */
       class HackerNews {
 
-        @http('https://hacker-news.firebaseio.com/v0/topstories.json')
-        static topstories (request, response) {
+        @get('https://hacker-news.firebaseio.com/v0/topstories.json')
+        topstories (request, response) {
           return request(response);
         }
 
       }
 
       /* When */
-      const topstories = await HackerNews.topstories();
+      var hackerNews = new HackerNews();
+      const topstories = await hackerNews.topstories();
 
       /* Then */
       expect(topstories).to.be.an(Array);
