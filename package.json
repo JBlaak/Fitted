@@ -1,8 +1,10 @@
 {
   "name": "fitted",
   "version": "0.0.1",
-  "description": "",
+  "description": "Simplifying http requests using ES7 decorators",
+  "main": "lib/http.js",
   "scripts": {
+    "prepublish": "babel src --out-dir lib", 
     "test": "npm run mocha-single",
     "mocha-single": "mocha tests --recursive --require mocha.config.js",
     "mocha-watch": "mocha tests --recursive --require mocha.config.js --watch"
