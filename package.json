@@ -4,7 +4,7 @@
   "description": "Simplifying http requests using ES7 decorators",
   "main": "lib/http.js",
   "scripts": {
-    "prepublish": "babel src --out-dir lib", 
+    "prepublish": "babel src --out-dir lib",
     "test": "npm run mocha-single",
     "mocha-single": "mocha tests --recursive --require mocha.config.js",
     "mocha-watch": "mocha tests --recursive --require mocha.config.js --watch"
@@ -23,6 +23,7 @@
     "mocha": "^2.5.3"
   },
   "dependencies": {
-    "request": "^2.72.0"
+    "request": "^2.72.0",
+    "url-template": "^2.0.6"
   }
 }
