@@ -1,6 +1,8 @@
 Fitted
 ====
 
+[![Build Status](https://travis-ci.org/JBlaak/Fitted.svg?branch=master)](https://travis-ci.org/JBlaak/Fitted)
+
 ES7 decorator to do http request, currently in experimental fase! But look how awesome this is:
 
 ```
