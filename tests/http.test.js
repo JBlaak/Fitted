@@ -1,5 +1,5 @@
 import expect from 'expect.js';
-import {get} from '../src/http';
+import {get} from '../build/http';
 
 describe('HttpDecorator', function () {
 
