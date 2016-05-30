@@ -3,10 +3,10 @@ import Request from 'request';
 
 export function get (url) {
 
-  const req = (template, res) => {
+  const req = (config, res) => {
 
     return new Promise((resolve, reject) => {
-      Request(UrlTemplate.parse(url).expand(template), function (error, response, body) {
+      Request(UrlTemplate.parse(url).expand(config.template || {}), function (error, response, body) {
 
         if (typeof res.processor != 'function') {
           res.processor = processor(error, response, body);

@@ -33,7 +33,9 @@ describe('HttpDecorator', function () {
         item (id, request, response) {
           return request(
             {
-              id: id
+              template: {
+                id: id
+              }
             },
             response
           );
