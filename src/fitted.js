@@ -10,3 +10,8 @@ export function get (url) {
   return Decorator(req);
 }
 
+export function processor (p) {
+  return (target) => {
+    target.prototype._processor = p;
+  }
+}
