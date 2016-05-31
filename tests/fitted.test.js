@@ -2,7 +2,7 @@ import 'babel-polyfill';
 import expect from 'expect.js';
 import {get} from '../src/fitted';
 
-describe('@get decorator', function () {
+describe('@get Decorator', function () {
 
   it('should be able to fetch topstories from HackerNews', async function () {
     /* Given */
