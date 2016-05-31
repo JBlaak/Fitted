@@ -6,7 +6,9 @@
   "scripts": {
     "prepublish": "npm run build",
     "build": "babel src --out-dir build",
-    "test": "npm run build && karma start karma.config.js --single-run && mocha tests --recursive --require mocha.config.js"
+    "test": "npm run build && npm run karma && npm run mocha",
+    "karma": "karma start karma.config.js --single-run",
+    "mocha": "mocha tests --recursive --require mocha.config.js"
   },
   "author": "Joris Blaak",
   "license": "Apache-2.0",

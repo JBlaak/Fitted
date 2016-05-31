@@ -36,7 +36,7 @@ module.exports = function (config) {
 
       // webpack configuration
       module: {
-        noParse: /(requests\/server\.js)/,
+        noParse: /(server)/,
         loaders: [
           {
             test: /\.js$/,

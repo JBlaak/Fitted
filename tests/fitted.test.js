@@ -1,6 +1,6 @@
 import 'babel-polyfill';
 import expect from 'expect.js';
-import {get} from '../src/http.js';
+import {get} from '../src/fitted';
 
 describe('@get decorator', function () {
 
@@ -20,8 +20,8 @@ describe('@get decorator', function () {
     const topstories = await hackerNews.topstories();
 
     /* Then */
-    expect(topstories).to.be.an(Array);
-    expect(topstories.length).to.be.greaterThan(0);
+    expect(topstories.getBody()).to.be.an(Array);
+    expect(topstories.getBody().length).to.be.greaterThan(0);
   });
 
   it('should be able to fetch single story', async function () {
@@ -47,8 +47,8 @@ describe('@get decorator', function () {
     const item = await hackerNews.item(2921983);
 
     /* Then */
-    expect(item).to.be.ok();
-    expect(item.by).to.be("norvig");
+    expect(item.getBody()).to.be.ok();
+    expect(item.getBody().by).to.be("norvig");
   });
 
 });

@@ -1,3 +1,5 @@
+import Response from '../data/response';
+
 /**
  * From: https://gist.github.com/monsur/706839
  * @param headerStr
@@ -22,18 +24,15 @@ const parseResponseHeaders = (headerStr) => {
   return headers;
 };
 
-export default function BrowserRequest (url, config, process) {
+export default function BrowserRequest (url, config, callback) {
   var request = new XMLHttpRequest();
   request.onreadystatechange = () => {
     if (request.readyState == 4) {
-      if (request.status == 200) {
-        const response = {
-          headers: parseResponseHeaders(request.getAllResponseHeaders())
-        };
-        process(null, response, request.responseText);
-      } else {
-        process(new Error('Non 200 code returned from remote'), {}, request.responseText);
-      }
+      var response = new Response();
+      response.setHeaders(parseResponseHeaders(request.getAllResponseHeaders()));
+      response.setStatus(request.status);
+      response.setBody(request.responseText);
+      callback(response);
     }
   };
   request.open('GET', url, true);
