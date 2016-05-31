@@ -3,11 +3,25 @@ Fitted
 
 [![Build Status](https://travis-ci.org/JBlaak/Fitted.svg?branch=master)](https://travis-ci.org/JBlaak/Fitted)
 
-ES7 decorator to do http request, currently in experimental fase! But look how awesome this is:
+Use ES7 decorators to do HTTP request and manage processing of responses, an easy and readable way of managing
+how data flows through the networking layer of your application
+
+Example
+----
+
+Two main parts, the function decorators which will actually do the request, and the class decorators
+which will allow you to handle the way responses from the server are transformed and handled.
 
 ```javascript
-import {get} from 'fitted';
+import {get, processor} from 'fitted';
 
+const myProcessor = response => {
+    response.setBody(JSON.parse(resonse.getBody()));
+    
+    return response;
+}
+
+@processor(myProcessor)
 class HackerNews {
 
     @get('https://hacker-news.firebaseio.com/v0/topstories.json')
@@ -34,6 +48,7 @@ And fetch:
 ```
 const hackerNews = new HackerNews();
 const topstories = await hackerNews.topstories();
-const item = await hackerNews.item(9786706);
+const itemResponse = await hackerNews.item(9786706);
+console.log(itemResponse.getBody());//Not sure about this (yet)
 ```
 

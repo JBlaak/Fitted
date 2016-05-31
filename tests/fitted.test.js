@@ -1,6 +1,37 @@
 import 'babel-polyfill';
 import expect from 'expect.js';
-import {get} from '../src/fitted';
+import {get, processor} from '../src/fitted';
+
+describe('@processor Decorator', function () {
+
+  it('Should have its processor called by function decorator', async function () {
+    /* Given */
+    let processorWasCalled = false;
+    const myProcessor = (response) => {
+      processorWasCalled = true;
+
+      return response;
+    };
+
+    @processor(myProcessor)
+    class HackerNews {
+
+      @get('https://hacker-news.firebaseio.com/v0/topstories.json')
+      topstories (request, response) {
+        return request({}, response);
+      }
+
+    }
+
+    /* When */
+    var hackerNews = new HackerNews();
+    await hackerNews.topstories();
+
+    /* Then */
+    expect(processorWasCalled).to.be(true);
+  });
+
+});
 
 describe('@get Decorator', function () {
 

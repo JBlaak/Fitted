@@ -6,7 +6,12 @@ export default function decorator (req) {
       throw new Error(`@(get|put|post|delete) decorator can only be applied to methods not: ${typeof fn}`);
     }
 
-    descriptor.value = (...args) => fn.apply(fn, [ ...args, req, {} ]);
+    descriptor.value = (...args) => {
+      const res = {
+        processor: target._processor
+      };
+      return fn.apply(fn, [ ...args, req, res ]);
+    };
     return descriptor;
   }
 }
