@@ -1,12 +1,10 @@
 import UrlTemplate from 'url-template';
-import Request from 'request';
+import Request from './request';
 
 export function get (url) {
-
   const req = (config, res) => {
-
     return new Promise((resolve, reject) => {
-      Request(UrlTemplate.parse(url).expand(config.template || {}), function (error, response, body) {
+      Request(UrlTemplate.parse(url).expand(config.template || {}), config, function (error, response, body) {
 
         if (typeof res.processor != 'function') {
           res.processor = processor(error, response, body);
@@ -14,12 +12,12 @@ export function get (url) {
 
         const result = res.processor(error, response, body);
 
-        if (!result.error && result.response.statusCode == 200) {
+        if (!result.error) {
           resolve(result.body);
         } else {
           reject(result.body);
         }
-      })
+      });
     })
   };
 
@@ -27,7 +25,7 @@ export function get (url) {
     const fn = descriptor.value;
 
     if (typeof fn !== 'function') {
-      throw new Error(`@http decorator can only be applied to methods not: ${typeof fn}`);
+      throw new Error(`@get decorator can only be applied to methods not: ${typeof fn}`);
     }
 
     descriptor.value = (...args) => fn.apply(fn, [ ...args, req, {} ]);
@@ -43,7 +41,6 @@ export function get (url) {
  * @returns {function(error, response, body)}
  */
 const processor = (error, response, body) => {
-
   var contentType = response.headers[ 'content-type' ];
   if (contentType && contentType.indexOf('application/json') !== -1) {
     return () => {
@@ -54,5 +51,7 @@ const processor = (error, response, body) => {
       }
     }
   }
+
+  throw new Error('No processor found for Content-Type: ' + contentType);
 
 };
