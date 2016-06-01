@@ -18,9 +18,10 @@ which will allow you to handle the way responses from the server are transformed
 import {get, processor} from 'fitted';
 
 const myProcessor = response => {
-    response.setBody(JSON.parse(resonse.getBody()));
+    const data = JSON.parse(response.getBody());
+    response.setBody(data);
     
-    return response;
+    return data;
 }
 
 @processor(myProcessor)
@@ -50,7 +51,7 @@ And fetch:
 ```
 const hackerNews = new HackerNews();
 const topstories = await hackerNews.topstories();
-const itemResponse = await hackerNews.item(9786706);
-console.log(itemResponse.getBody());//Not sure about this (yet)
+const item = await hackerNews.item(9786706);
+console.log(item);
 ```
 

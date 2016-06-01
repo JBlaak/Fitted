@@ -63,8 +63,8 @@ describe('@get Decorator', function () {
     const topstories = await myBackendService.topstories();
 
     /* Then */
-    expect(topstories.getBody()).to.be.an(Array);
-    expect(topstories.getBody().length).to.be.greaterThan(0);
+    expect(topstories).to.be.an(Array);
+    expect(topstories.length).to.be.greaterThan(0);
   });
 
   it('should be able to fetch a single item from MyBackendService', async function () {
@@ -92,8 +92,8 @@ describe('@get Decorator', function () {
     const topstories = await myBackendService.item(123123);
 
     /* Then */
-    expect(topstories.getBody()).to.be.an(Array);
-    expect(topstories.getBody().length).to.be.greaterThan(0);
+    expect(topstories).to.be.an(Array);
+    expect(topstories.length).to.be.greaterThan(0);
   });
 
 });

@@ -24,10 +24,10 @@ class HackerNews {
   const hackerNews = new HackerNews();
   const topstories = await hackerNews.topstories();
   
-  console.log(`There are ${topstories.getBody().length} topstories!`);
+  console.log(`There are ${topstories.length} topstories!`);
   
   const item = await hackerNews.item(9786706);
   
-  console.log(`And article 9786706 is by ${item.getBody().by}.`);
+  console.log(`And article 9786706 is by ${item.by}.`);
   
 })();

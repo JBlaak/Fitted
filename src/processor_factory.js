@@ -11,7 +11,6 @@ export default function ProcessorFactory (response) {
     && typeof response.getBody() == 'string'
   ) {
     return () => {
-      const json = response.getBody();
       const body = JSON.parse(json);
       response.setBody(body);
       return response;
