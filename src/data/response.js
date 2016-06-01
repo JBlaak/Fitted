@@ -1,5 +1,13 @@
 export default class Response {
 
+  setError (error) {
+    this.error = error;
+  }
+
+  getError () {
+    return this.error || null;
+  }
+
   setStatus (status) {
     this.status = parseInt(status);
   }
@@ -25,6 +33,7 @@ export default class Response {
   }
 
   isOk () {
-    return this.status == null || ('' + this.status).startsWith('2');
+    return !this.error
+      && (this.status != null && ('' + this.status).startsWith('2'));
   }
 }
