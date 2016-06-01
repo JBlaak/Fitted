@@ -1,5 +1,5 @@
 import UrlTemplate from 'url-template';
-import HttpFactory from './http_factory';
+import HttpFactory from './http';
 import ProcessorFactory from './processor_factory';
 
 export default function request (url, config, res) {
