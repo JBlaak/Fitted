@@ -18,9 +18,9 @@ describe('@get Decorator', function () {
       callback(res);
     };
 
-    class HackerNews {
+    class MyBackendService {
 
-      @get('https://hacker-news.firebaseio.com/v0/topstories.json')
+      @get('https://your-backend.com/topstories.json')
       topstories (request, response) {
 
         return request(
@@ -34,18 +34,18 @@ describe('@get Decorator', function () {
     }
 
     /* When */
-    var hackerNews = new HackerNews();
-    const topstories = await hackerNews.topstories();
+    var myBackendService = new MyBackendService();
+    const topstories = await myBackendService.topstories();
 
     /* Then */
     expect(passedMethod).to.be('GET');
   });
 
-  it('should be able to fetch topstories from HackerNews', async function () {
+  it('should be able to fetch topstories from MyBackendService', async function () {
     /* Given */
-    class HackerNews {
+    class MyBackendService {
 
-      @get('https://hacker-news.firebaseio.com/v0/topstories.json')
+      @get('https://your-backend.com/topstories.json')
       topstories (request, response) {
 
         return request(
@@ -59,19 +59,19 @@ describe('@get Decorator', function () {
     }
 
     /* When */
-    var hackerNews = new HackerNews();
-    const topstories = await hackerNews.topstories();
+    var myBackendService = new MyBackendService();
+    const topstories = await myBackendService.topstories();
 
     /* Then */
     expect(topstories.getBody()).to.be.an(Array);
     expect(topstories.getBody().length).to.be.greaterThan(0);
   });
 
-  it('should be able to fetch a single item from HackerNews', async function () {
+  it('should be able to fetch a single item from MyBackendService', async function () {
     /* Given */
-    class HackerNews {
+    class MyBackendService {
 
-      @get('https://hacker-news.firebaseio.com/v0/item/{id}.json')
+      @get('https://your-backend.com/item/{id}.json')
       item (id, request, response) {
 
         return request(
@@ -88,8 +88,8 @@ describe('@get Decorator', function () {
     }
 
     /* When */
-    var hackerNews = new HackerNews();
-    const topstories = await hackerNews.item(123123);
+    var myBackendService = new MyBackendService();
+    const topstories = await myBackendService.item(123123);
 
     /* Then */
     expect(topstories.getBody()).to.be.an(Array);
@@ -114,9 +114,9 @@ describe('@post Decorator', function () {
       callback(res);
     };
 
-    class HackerNews {
+    class MyBackendService {
 
-      @post('https://hacker-news.firebaseio.com/v0/topstories.json')
+      @post('https://your-backend.com/topstories.json')
       create (content, request, response) {
 
         return request(
@@ -130,8 +130,8 @@ describe('@post Decorator', function () {
     }
 
     /* When */
-    var hackerNews = new HackerNews();
-    const topstories = await hackerNews.create('My story');
+    var myBackendService = new MyBackendService();
+    const topstories = await myBackendService.create('My story');
 
     /* Then */
     expect(passedMethod).to.be('POST');
@@ -155,9 +155,9 @@ describe('@put Decorator', function () {
       callback(res);
     };
 
-    class HackerNews {
+    class MyBackendService {
 
-      @put('https://hacker-news.firebaseio.com/v0/topstories.json')
+      @put('https://your-backend.com/topstories.json')
       update (content, request, response) {
 
         return request(
@@ -171,8 +171,8 @@ describe('@put Decorator', function () {
     }
 
     /* When */
-    var hackerNews = new HackerNews();
-    const topstories = await hackerNews.update('My better story');
+    var myBackendService = new MyBackendService();
+    const topstories = await myBackendService.update('My better story');
 
     /* Then */
     expect(passedMethod).to.be('PUT');
@@ -196,9 +196,9 @@ describe('@destroy Decorator', function () {
       callback(res);
     };
 
-    class HackerNews {
+    class MyBackendService {
 
-      @destroy('https://hacker-news.firebaseio.com/v0/topstories.json')
+      @destroy('https://your-backend.com/topstories.json')
       destroy (id, request, response) {
 
         return request(
@@ -212,8 +212,8 @@ describe('@destroy Decorator', function () {
     }
 
     /* When */
-    var hackerNews = new HackerNews();
-    const topstories = await hackerNews.destroy(123123);
+    var myBackendService = new MyBackendService();
+    const topstories = await myBackendService.destroy(123123);
 
     /* Then */
     expect(passedMethod).to.be('DELETE');
