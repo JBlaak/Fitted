@@ -13,7 +13,7 @@ export default function request (url, config, res) {
       response = res.processor(response);
 
       if (response.isOk()) {
-        resolve(response);
+        resolve(response.getBody());
       } else {
         reject(response);
       }
