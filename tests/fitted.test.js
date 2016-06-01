@@ -1,5 +1,6 @@
 import 'babel-polyfill';
 import expect from 'expect.js';
+import Response from '../src/data/response';
 import {get, processor} from '../src/fitted';
 
 describe('@processor Decorator', function () {
@@ -18,7 +19,12 @@ describe('@processor Decorator', function () {
 
       @get('https://hacker-news.firebaseio.com/v0/topstories.json')
       topstories (request, response) {
-        return request({}, response);
+        return request(
+          {
+            driver: driver
+          },
+          response
+        );
       }
 
     }
@@ -41,7 +47,13 @@ describe('@get Decorator', function () {
 
       @get('https://hacker-news.firebaseio.com/v0/topstories.json')
       topstories (request, response) {
-        return request({}, response);
+
+        return request(
+          {
+            driver: driver
+          },
+          response
+        );
       }
 
     }
@@ -55,32 +67,14 @@ describe('@get Decorator', function () {
     expect(topstories.getBody().length).to.be.greaterThan(0);
   });
 
-  it('should be able to fetch single story', async function () {
-    /* Given */
-    class HackerNews {
-
-      @get('https://hacker-news.firebaseio.com/v0/item/{id}.json')
-      item (id, request, response) {
-        return request(
-          {
-            template: {
-              id: id
-            }
-          },
-          response
-        );
-      }
-
-    }
-
-    /* When */
-    var hackerNews = new HackerNews();
-    const item = await hackerNews.item(2921983);
-
-    /* Then */
-    expect(item.getBody()).to.be.ok();
-    expect(item.getBody().by).to.be("norvig");
-  });
-
 });
 
+const driver = (url, config, callback) => {
+  const res = new Response();
+  res.setStatus(200);
+  res.setBody([
+    123,
+    321
+  ]);
+  callback(res);
+};
