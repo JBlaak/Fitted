@@ -9,6 +9,8 @@ how data flows through the networking layer of your application
 Example
 ----
 
+TL;DR just show me code, well try and run `npm install && npm run-script hackernews` in the `example` dir
+
 Two main parts, the function decorators which will actually do the request, and the class decorators
 which will allow you to handle the way responses from the server are transformed and handled.
 

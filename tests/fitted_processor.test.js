@@ -14,9 +14,9 @@ describe('@processor Decorator', function () {
     };
 
     @processor(myProcessor)
-    class HackerNews {
+    class MyBackendService {
 
-      @get('https://hacker-news.firebaseio.com/v0/topstories.json')
+      @get('https://your-backend.com/topstories.json')
       topstories (request, response) {
         return request(
           {
@@ -29,8 +29,8 @@ describe('@processor Decorator', function () {
     }
 
     /* When */
-    var hackerNews = new HackerNews();
-    await hackerNews.topstories();
+    var myBackendService = new MyBackendService();
+    await myBackendService.topstories();
 
     /* Then */
     expect(processorWasCalled).to.be(true);
