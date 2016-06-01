@@ -67,6 +67,35 @@ describe('@get Decorator', function () {
     expect(topstories.getBody().length).to.be.greaterThan(0);
   });
 
+  it('should be able to fetch a single item from HackerNews', async function () {
+    /* Given */
+    class HackerNews {
+
+      @get('https://hacker-news.firebaseio.com/v0/item/{id}.json')
+      item (id, request, response) {
+
+        return request(
+          {
+            driver: driver,
+            template: {
+              id: id
+            }
+          },
+          response
+        );
+      }
+
+    }
+
+    /* When */
+    var hackerNews = new HackerNews();
+    const topstories = await hackerNews.item(123123);
+
+    /* Then */
+    expect(topstories.getBody()).to.be.an(Array);
+    expect(topstories.getBody().length).to.be.greaterThan(0);
+  });
+
 });
 
 const driver = (url, config, callback) => {
