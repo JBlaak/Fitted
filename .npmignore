@@ -1,5 +1,10 @@
 src/
+tests/
 .idea
 node_modules
 example
 npm-debug.log
+.babelrc
+.travis.yml
+karma.config.js
+mocha.config.js
