@@ -7,7 +7,7 @@ function get(url, config, callback) {
         req = req.query(config.query);
     }
     if (config.headers) {
-        req = passHeaders(config.headers);
+        req = passHeaders(config.headers, req);
     }
     req.end(end(callback));
 }
@@ -18,7 +18,7 @@ function post(url, config, callback) {
         req = req.send(config.data);
     }
     if (config.headers) {
-        req = passHeaders(config.headers);
+        req = passHeaders(config.headers, req);
     }
     req.end(end(callback));
 }
@@ -29,7 +29,7 @@ function put(url, config, callback) {
         req = req.send(config.data);
     }
     if (config.headers) {
-        req = passHeaders(config.headers);
+        req = passHeaders(config.headers, req);
     }
     req.end(end(callback));
 }
@@ -40,7 +40,7 @@ function destroy(url, config, callback) {
         req = req.send(config.data);
     }
     if (config.headers) {
-        req = passHeaders(config.headers);
+        req = passHeaders(config.headers, req);
     }
     req.end(end(callback));
 }
