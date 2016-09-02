@@ -8,6 +8,7 @@ export default function decorator (req) {
 
     descriptor.value = (...args) => {
       const res = {
+        base: target._base,
         processor: target._processor
       };
       return fn.apply(fn, [ ...args, req, res ]);

@@ -17,6 +17,12 @@ export function destroy (url) {
   return impl(url, 'DELETE');
 }
 
+export function base (p) {
+  return (target) => {
+    target.prototype._base = p;
+  }
+}
+
 export function processor (p) {
   return (target) => {
     target.prototype._processor = p;
