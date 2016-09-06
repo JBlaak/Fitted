@@ -1,39 +1,39 @@
 export default class Response {
 
-  setError (error) {
-    this.error = error;
-  }
+    setError(error) {
+        this.error = error;
+    }
 
-  getError () {
-    return this.error || null;
-  }
+    getError() {
+        return this.error || null;
+    }
 
-  setStatus (status) {
-    this.status = parseInt(status);
-  }
+    setStatus(status) {
+        this.status = parseInt(status);
+    }
 
-  getStatus () {
-    return this.status || null;
-  }
+    getStatus() {
+        return this.status || null;
+    }
 
-  setHeaders (headers) {
-    this.headers = headers;
-  }
+    setHeaders(headers) {
+        this.headers = headers;
+    }
 
-  getHeaders () {
-    return this.headers || {}
-  }
+    getHeaders() {
+        return this.headers || {}
+    }
 
-  setBody (body) {
-    this.body = body;
-  }
+    setBody(body) {
+        this.body = body;
+    }
 
-  getBody () {
-    return this.body || null;
-  }
+    getBody() {
+        return this.body || null;
+    }
 
-  isOk () {
-    return !this.error
-      && (this.status != null && ('' + this.status).startsWith('2'));
-  }
+    isOk() {
+        return !this.error
+            && (this.status != null && ('' + this.status).startsWith('2'));
+    }
 }

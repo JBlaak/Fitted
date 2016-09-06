@@ -1,43 +1,43 @@
-import expect from 'expect.js';
-import Response from '../src/data/response';
-import {get, base, processor} from '../src/fitted';
+import expect from "expect.js";
+import Response from "../src/data/response";
+import {get, base} from "../src/fitted";
 
 describe('@base Decorator', function () {
 
-  it('should prepend a base url to the given url', async function () {
-    /* Given */
-    let passedUrl = null;
-    const driver = (url, config, callback) => {
-      passedUrl = url;
-        
-      const res = new Response();
-      res.setStatus(200);
-        
-      callback(res);
-    };
+    it('should prepend a base url to the given url', async function () {
+        /* Given */
+        let passedUrl = null;
+        const driver = (url, config, callback) => {
+            passedUrl = url;
 
-    @base('https://your-backend.com/')
-    class MyBackendService {
+            const res = new Response();
+            res.setStatus(200);
 
-      @get('topstories.json')
-      topstories (request, response) {
-        return request(
-          {
-            driver: driver
-          },
-          response
-        );
-      }
+            callback(res);
+        };
 
-    }
+        @base('https://your-backend.com/')
+        class MyBackendService {
 
-    /* When */
-    var myBackendService = new MyBackendService();
-    const topstories = await myBackendService.topstories();
+            @get('topstories.json')
+            topstories(request, response) {
+                return request(
+                    {
+                        driver: driver
+                    },
+                    response
+                );
+            }
 
-    /* Then */
-    expect(passedUrl).to.be('https://your-backend.com/topstories.json');
-  });
+        }
+
+        /* When */
+        var myBackendService = new MyBackendService();
+        const topstories = await myBackendService.topstories();
+
+        /* Then */
+        expect(passedUrl).to.be('https://your-backend.com/topstories.json');
+    });
 
 });
 
