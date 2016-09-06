@@ -1,6 +1,6 @@
 {
   "name": "fitted",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Simplifying http requests using ES7 decorators",
   "main": "build/fitted.js",
   "scripts": {
