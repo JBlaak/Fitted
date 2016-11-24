@@ -10,7 +10,7 @@ how data flows through the networking layer of your application.
 Example
 ----
 
-Two main parts, the function decorators which will actually do the request, and the class decorators
+Two main parts, the method decorators which will actually do the request, and the class decorators
 which will allow you to handle the way responses from the server are transformed and handled.
 
 The simplest example is just a fetch of data from a JSON endpoint:
