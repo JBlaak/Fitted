@@ -48,7 +48,7 @@ class HackerNews {
 
 And fetch:
 
-```
+```javascript
 const hackerNews = new HackerNews();
 const topstories = await hackerNews.topstories();
 const item = await hackerNews.item(9786706);
