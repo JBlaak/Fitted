@@ -3,7 +3,8 @@ Fitted
 
 [![Build Status](https://travis-ci.org/JBlaak/Fitted.svg?branch=master)](https://travis-ci.org/JBlaak/Fitted)
 
-Use ES7 decorators to execute HTTP requests and manage processing of responses, an easy and readable way of managing
+Use ECMAScript decorators ([currently a Stage 2 proposal](https://github.com/tc39/proposals)) to
+execute HTTP requests and manage processing of responses, an easy and readable way of managing
 how data flows through the networking layer of your application.
 
 Example
