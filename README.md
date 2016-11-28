@@ -34,12 +34,109 @@ const topstories = await hackerNews.topstories();
 console.log(topstories);
 ```
 
-However you can tweak behavior to your wishes and introduce POST, PUT and other requests
+Usage
+-----
+
+__Basic request__
+
+Using the `get` decorator you can trigger a `GET` request:
 
 ```javascript
-import {get, post, processor, base} from 'fitted';
+import {get} from 'fitted';
 
-//This will be resolved from the application/json response body
+class HackerNews {
+    @get('https://hacker-news.firebaseio.com/v0/topstories.json')
+    topstories (request, response) {
+      return request({}, response);
+    }
+}
+```
+
+**Merging params**
+
+To merge params with the url we use (url-template)[https://github.com/bramstein/url-template],
+which uses curly brackets to encapsulate a to be merged variable.
+
+```javascript
+import {get} from 'fitted';
+
+class HackerNews {
+      @get('https://hacker-news.firebaseio.com/v0/item/{id}.json')
+      item (id, request, response) {
+          return request({
+                template: {
+                    id: 123
+                 }
+          }, response);
+      }
+}
+```
+
+**Base url**
+
+Most of the time your endpoints will share the same base url, so Fitted
+allows you to set a base url which will be prefixed to all paths 
+set in your method decorators.
+
+```javascript
+import {base, get} from 'fitted';
+
+@base('https://hacker-news.firebaseio.com/v0/')
+class HackerNews {
+      @get('item/{id}.json')
+      item (id, request, response) {
+          return request({
+                template: {
+                    id: 123
+                 }
+          }, response);
+      }
+}
+```
+
+__Sending data__
+
+To add data to your request for `post`, `put` and `destroy` requests and
+specifying a query string for your `get` request you add a `data` object
+to your request definition.
+
+```javascript
+import {put} from 'fitted';
+
+class HackerNews {
+      @put('https://hacker-news.firebaseio.com/v0/item/{id}.json')
+      item (id, name, request, response) {
+          return request({
+                template: {
+                    id: 123
+                },
+                data: {
+                   name: name
+                }
+          }, response);
+      }
+}
+```
+
+__Response handling__
+
+When the server responds with a `Content-Type` header containing `application/json` 
+Fitted will automatically feed it to the `JSON.parse` function so that
+the resulting Promise will output the corresponding object.
+
+Any other `Content-Type` will result in an Error being thrown and require 
+you to implement your own handler.
+
+**Custom response processor**
+
+When your endpoint returns something that requires some pre-processing you
+can define a processor for all endpoints in your api definition. This
+consists of a function that receives the response from the server and
+passes the parsed data to the response object.
+
+```javascript
+import {get, processor} from 'fitted';
+
 const myProcessor = response => {
     const data = JSON.parse(response.getBody());
     response.setBody(data);
@@ -47,41 +144,15 @@ const myProcessor = response => {
     return data;
 }
 
-@base('https://hacker-news.firebaseio.com/v0/')
 @processor(myProcessor)
 class HackerNews {
     @get('item/{id}.json')
     item (id, request, response) {
-      return request(
-        {
+      return request({
             template: {
                 id: id
             }
-        },
-        response
-      );
-    }
-    
-    @post('items')
-    store (title, request, response) {
-      return request(
-        {
-            data: {
-                title: title
-            }
-        },
-        response
-      );
+        }, response);
     }
 }
 ```
-
-And fetch:
-
-```javascript
-const hackerNews = new HackerNews();
-const item = await hackerNews.item(9786706);
-const result = await hackerNews.store('Fitted is awesome!');
-console.log(item);
-```
-
