@@ -54,7 +54,7 @@ class HackerNews {
 
 **Merging params**
 
-To merge params with the url we use (url-template)[https://github.com/bramstein/url-template],
+To merge params with the url we use [url-template](https://github.com/bramstein/url-template),
 which uses curly brackets to encapsulate a to be merged variable.
 
 ```javascript
