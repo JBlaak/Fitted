@@ -118,13 +118,44 @@ class HackerNews {
 }
 ```
 
+__Request decorating__
+
+Often all endpoints will have the same request requirements, requiring,
+for example, all to have some header set. For this the `@request` 
+decorator can be used. It will get the config of each request
+passed before handing it over to the driver.
+
+```javascript
+import {get, request} from 'fitted';
+
+const myRequestHandler = config => {
+    config.headers = {
+        'accept': 'application/json' 
+    }
+    
+    return config;
+}
+
+@request(myRequestHandler)
+class HackerNews {
+    @get('item/{id}.json')
+    item (id, request, response) {
+      return request({
+            template: {
+                id: id
+            }
+        }, response);
+    }
+}
+```
+
 __Response handling__
 
 When the server responds with a `Content-Type` header containing `application/json` 
 Fitted will automatically feed it to the `JSON.parse` function so that
 the resulting Promise will output the corresponding object.
 
-Any other `Content-Type` will result in an Error being thrown and require 
+Any other `Content-Type` will result in an Error being thrown and require
 you to implement your own handler.
 
 **Custom response processor**
