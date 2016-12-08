@@ -1,8 +1,14 @@
 {
   "name": "fitted",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Simplifying http requests using ES decorators",
   "main": "build/fitted.js",
+  "author": "Joris Blaak",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/JBlaak/Fitted.git"
+  },
   "scripts": {
     "prepublish": "npm run build",
     "build": "babel src --out-dir build",
@@ -10,8 +16,6 @@
     "karma": "karma start karma.config.js --single-run",
     "mocha": "mocha tests --recursive --require mocha.config.js"
   },
-  "author": "Joris Blaak",
-  "license": "Apache-2.0",
   "devDependencies": {
     "babel-cli": "^6.6.5",
     "babel-loader": "^6.2.4",
