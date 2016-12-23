@@ -10,9 +10,10 @@
     "url": "git://github.com/JBlaak/Fitted.git"
   },
   "scripts": {
-    "prepublish": "npm run build",
+    "prepublish": "yarn build",
     "build": "babel src --out-dir build",
-    "test": "npm run build && npm run karma && npm run mocha",
+    "test": "yarn lint && yarn build && yarn karma && yarn mocha",
+    "lint": "xo ./src/*",
     "karma": "karma start karma.config.js --single-run",
     "mocha": "mocha tests --recursive --require mocha.config.js"
   },
@@ -31,11 +32,32 @@
     "karma-mocha": "^1.0.1",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.5.3",
-    "webpack": "^1.13.1"
+    "webpack": "^1.13.1",
+    "xo": "^0.17.1"
   },
   "dependencies": {
     "request": "^2.72.0",
     "superagent": "^2.0.0",
     "url-template": "^2.0.6"
+  },
+  "xo": {
+    "space": 4,
+    "esnext": true,
+    "global": [
+      "json"
+    ],
+    "rules": {
+      "operator-linebreak": [
+        "error",
+        "before"
+      ],
+      "newline-before-return": "error",
+      "unicorn/filename-case": [
+        "error",
+        {
+          "case": "snakeCase"
+        }
+      ]
+    }
   }
 }

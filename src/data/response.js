@@ -9,7 +9,7 @@ export default class Response {
     }
 
     setStatus(status) {
-        this.status = parseInt(status);
+        this.status = parseInt(status, 10);
     }
 
     getStatus() {
@@ -21,7 +21,7 @@ export default class Response {
     }
 
     getHeaders() {
-        return this.headers || {}
+        return this.headers || {};
     }
 
     setBody(body) {
@@ -33,7 +33,6 @@ export default class Response {
     }
 
     isOk() {
-        return !this.error
-            && (this.status != null && ('' + this.status).startsWith('2'));
+        return !this.error && this.status !== null && String(this.status).startsWith('2');
     }
 }

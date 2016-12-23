@@ -2,7 +2,7 @@ import expect from "expect.js";
 import Response from "../src/data/response";
 import {get, base} from "../src/fitted";
 
-describe('@base Decorator', function () {
+describe('@base decorator', function () {
 
     it('should prepend a base url to the given url', async function () {
         /* Given */

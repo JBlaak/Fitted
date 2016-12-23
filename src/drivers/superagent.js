@@ -1,51 +1,12 @@
-import Superagent from "superagent";
-import Response from "../data/response";
-
-function get(url, config, callback) {
-    let req = Superagent.get(url);
-    if (config.query) {
-        req = req.query(config.query);
-    }
-    if (config.headers) {
-        req = passHeaders(config.headers, req);
-    }
-    req.end(end(callback));
-}
-
-function post(url, config, callback) {
-    let req = Superagent.post(url);
-    if (config.data) {
-        req = req.send(config.data);
-    }
-    if (config.headers) {
-        req = passHeaders(config.headers, req);
-    }
-    req.end(end(callback));
-}
-
-function put(url, config, callback) {
-    let req = Superagent.post(url);
-    if (config.data) {
-        req = req.send(config.data);
-    }
-    if (config.headers) {
-        req = passHeaders(config.headers, req);
-    }
-    req.end(end(callback));
-}
-
-function destroy(url, config, callback) {
-    let req = Superagent.del(url);
-    if (config.data) {
-        req = req.send(config.data);
-    }
-    if (config.headers) {
-        req = passHeaders(config.headers, req);
-    }
-    req.end(end(callback));
-}
+import Superagent from 'superagent';
+import Response from '../data/response';
 
 export default (url, config, callback) => {
+    /* Allow injecting the Superagent lib */
+    if (!config._superagent) {
+        config._superagent = Superagent;
+    }
+
     switch (config.method) {
         case 'GET':
             get(url, config, callback);
@@ -59,17 +20,65 @@ export default (url, config, callback) => {
         case 'DELETE':
             destroy(url, config, callback);
             break;
+        default:
+            throw new Error('Unknown HTTP verb requested', config.method);
     }
-}
-
-const passHeaders = (headers, req) => {
-    for (const header in headers) {
-        req = req.set(header, headers[header]);
-    }
-    return req;
 };
 
-const end = (callback) => {
+function get(url, config, callback) {
+    let req = config._superagent.get(url);
+    if (config.query) {
+        req = req.query(config.query);
+    }
+    if (config.headers) {
+        req = passHeaders(config.headers, req);
+    }
+    req.end(end(callback));
+}
+
+function post(url, config, callback) {
+    let req = config._superagent.post(url);
+    if (config.data) {
+        req = req.send(config.data);
+    }
+    if (config.headers) {
+        req = passHeaders(config.headers, req);
+    }
+    req.end(end(callback));
+}
+
+function put(url, config, callback) {
+    let req = config._superagent.post(url);
+    if (config.data) {
+        req = req.send(config.data);
+    }
+    if (config.headers) {
+        req = passHeaders(config.headers, req);
+    }
+    req.end(end(callback));
+}
+
+function destroy(url, config, callback) {
+    let req = config._superagent.del(url);
+    if (config.data) {
+        req = req.send(config.data);
+    }
+    if (config.headers) {
+        req = passHeaders(config.headers, req);
+    }
+    req.end(end(callback));
+}
+
+function passHeaders(headers, req) {
+    for (const header in headers) {
+        if (Object.prototype.hasOwnProperty.call(headers, header)) {
+            req = req.set(header, headers[header]);
+        }
+    }
+    return req;
+}
+
+function end(callback) {
     return (err, res) => {
         const response = new Response();
 
@@ -82,5 +91,6 @@ const end = (callback) => {
         }
 
         callback(response);
-    }
-};
+    };
+}
+
