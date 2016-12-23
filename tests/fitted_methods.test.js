@@ -2,7 +2,7 @@ import expect from "expect.js";
 import Response from "../src/data/response";
 import {get, post, put, destroy} from "../src/fitted";
 
-describe('@get Decorator', function () {
+describe('@get decorator', function () {
 
     it('should pass a GET method to the driver in the config', async function () {
         /* Given */
@@ -98,7 +98,7 @@ describe('@get Decorator', function () {
 
 });
 
-describe('@post Decorator', function () {
+describe('@post decorator', function () {
 
     it('should pass a POST method to the driver in the config', async function () {
         /* Given */
@@ -139,7 +139,7 @@ describe('@post Decorator', function () {
 
 });
 
-describe('@put Decorator', function () {
+describe('@put decorator', function () {
 
     it('should pass a PUT method to the driver in the config', async function () {
         /* Given */
@@ -180,7 +180,7 @@ describe('@put Decorator', function () {
 
 });
 
-describe('@destroy Decorator', function () {
+describe('@destroy decorator', function () {
 
     it('should pass a DELETE method to the driver in the config', async function () {
         /* Given */

@@ -2,7 +2,7 @@ import expect from "expect.js";
 import Response from "../src/data/response";
 import {get, request} from "../src/fitted";
 
-describe('@request Decorator', function () {
+describe('@request decorator', function () {
 
     it('Should have its method called with passed config', async function () {
         /* Given */

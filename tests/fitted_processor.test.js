@@ -2,7 +2,7 @@ import expect from "expect.js";
 import Response from "../src/data/response";
 import {get, processor} from "../src/fitted";
 
-describe('@processor Decorator', function () {
+describe('@processor decorator', function () {
 
     it('Should have its processor called by function decorator', async function () {
         /* Given */
